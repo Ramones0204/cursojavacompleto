@@ -1,0 +1,36 @@
+ package aplicacao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+
+import db.DB;
+
+public class Programa {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		Connection con = null;
+		PreparedStatement st = null;
+		
+		try {
+			String sql = "insert into seller (Name,Email,BirthDate,BaseSalary,DepartmentId) values (?,?,?,?,?)";
+			con = DB.getConnection();
+			st = con.prepareStatement(sql);
+			st.setString(1,"Ramon");
+			st.setString(2, "ramonr@gmail.com");
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DB.closeRs(rs);
+			DB.closeSt(st);
+			DB.getConnection();
+		}
+		
+	}
+
+}

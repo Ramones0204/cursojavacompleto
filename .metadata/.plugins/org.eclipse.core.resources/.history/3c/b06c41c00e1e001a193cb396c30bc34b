@@ -1,0 +1,65 @@
+package entidades;
+
+public class Conta {
+	private String nomeCliente;
+	private int numConta;
+	private double taxaSaque = 5.00;
+	private double saldo;
+	
+	public Conta() {
+		
+	}
+
+	public Conta(String nomeCliente, int numConta) {
+		this.nomeCliente = nomeCliente;
+		this.numConta = numConta;
+		saldo = 0.00;
+	}
+
+	public Conta(String nomeCliente, int numConta, double saldo) {
+		this.nomeCliente = nomeCliente;
+		this.numConta = numConta;
+		this.saldo = saldo;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	public int getNumConta() {
+		return numConta;
+	}
+	
+	public double getTaxaSaque() {
+		return taxaSaque;
+	}
+
+	public void setTaxaSaque(double taxaSaque) {
+		this.taxaSaque = taxaSaque;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+	
+	
+	public double depositar(double valorDeposito) {
+		saldo += valorDeposito;
+		return getSaldo();
+	}
+
+	public double sacar(double valorSaque) {
+		saldo -= valorSaque;
+		return getSaldo();
+	}
+
+	@Override
+	public String toString() {
+		return "Conta [nomeCliente=" + nomeCliente + ", numConta=" + numConta + ", saldo=" + saldo + "]";
+	}	
+		
+}

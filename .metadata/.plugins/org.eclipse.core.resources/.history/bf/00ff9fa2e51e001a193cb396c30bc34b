@@ -1,0 +1,22 @@
+package vetores;
+
+import java.util.Scanner;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Informe o quantidade de quartos que vão ser alugados");
+		// variavel n define o tamanho no vetor de quartos
+		int n = sc.nextInt();
+		String[] nomeCliente = new String[n];
+		String[] emailCliente = new String[n];
+		int[] quarto = new int[n];
+		
+		
+		
+		sc.close();
+
+	}
+
+}

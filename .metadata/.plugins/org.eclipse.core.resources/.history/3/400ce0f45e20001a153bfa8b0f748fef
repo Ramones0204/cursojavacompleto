@@ -1,0 +1,25 @@
+package aplicacao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Funcionario;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Funcionario funcionario = new Funcionario();
+		Scanner sc = new Scanner(System.in);
+	//	List<Funcionario> func = new ArrayList<Funcionario>();
+		
+		System.out.println("Informe a quantidade de registros");
+		int n = sc.nextInt();
+		List<Funcionario> lista = new ArrayList<Funcionario>(n);
+		
+		
+	}
+
+}

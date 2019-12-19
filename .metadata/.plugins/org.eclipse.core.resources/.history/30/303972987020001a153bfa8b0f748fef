@@ -1,0 +1,49 @@
+package aplicacao;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Funcionario;
+
+public class Ex01 {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		List<Funcionario> lista = new ArrayList<Funcionario>();
+
+		System.out.println("Informe a quantidade de registros");
+		int n = sc.nextInt();
+
+		for (int i = 1; i <= n; i++) {
+			System.out.println("Funcionario " + i);
+			System.out.println("Informe o Id do funcionario");
+			Integer id = sc.nextInt();
+			System.out.println("Informe o Nome do funcionario");
+			String name = sc.nextLine();
+			System.out.println("Informe o Salario do funcionario");
+			Double salary = sc.nextDouble();
+			lista.add(new Funcionario(id, name, salary));
+		}
+		
+		System.out.println("Informe o Id do funcionario");
+		int id = sc.nextInt();
+		Funcionario fun = lista.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		
+		System.out.println("Informe a porcentagem do aumento");
+		Double porcentagem = sc.nextDouble();
+		
+		fun.aumentarSalario(porcentagem);
+		
+
+		for (Funcionario func : lista) {
+			System.out.println(func);
+		}
+		
+		sc.close();
+
+	}
+
+}

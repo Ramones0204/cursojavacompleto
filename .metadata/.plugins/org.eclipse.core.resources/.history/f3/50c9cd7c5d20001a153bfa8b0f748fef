@@ -1,0 +1,9 @@
+package entidades;
+
+public class Funcionario {
+	private Integer id;
+	private String name;
+	private Double salary;
+	
+	
+}

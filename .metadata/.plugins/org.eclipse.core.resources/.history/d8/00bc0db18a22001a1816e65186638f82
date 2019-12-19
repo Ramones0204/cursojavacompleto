@@ -1,0 +1,40 @@
+ package aplicacao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+
+import db.DB;
+
+public class Programa {
+
+	public static void main(String[] args) throws ClassNotFoundException {
+		SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
+		Connection con = null;
+		PreparedStatement st = null;
+		
+		try {
+			String sql = "insert into seller (Name,Email,BirthDate,BaseSalary,DepartmentId) values (?,?,?,?,?)";
+			con = DB.getConnection();
+			st = con.prepareStatement(sql);
+			st.setString(1,"Ramon");
+			st.setString(2, "ramonr@gmail.com");
+			st.setDate(3, new java.sql.Date(sd.parse("11/04/1999").getTime()));
+			st.setDouble(4, 600.0);
+			st.setInt(5, 4);
+			
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DB.closeRs(rs);
+			DB.closeSt(st);
+			DB.getConnection();
+		}
+		
+	}
+
+}

@@ -1,0 +1,24 @@
+package entidades;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entidades.enums.NivelTrabalhador;
+
+public class Trabalhador {
+	private String nomeTrabalhador;
+	private NivelTrabalhador nivelTrabalhador;
+	private Double salarioBase;
+	private Departamento departamento;
+	private List<HorasContrato> contratos = new ArrayList<HorasContrato>();
+	
+	public Trabalhador(String nomeTrabalhador, NivelTrabalhador nivelTrabalhador, Double salarioBase,Departamento departamento) {
+		this.nomeTrabalhador = nomeTrabalhador;
+		this.nivelTrabalhador = nivelTrabalhador;
+		this.salarioBase = salarioBase;
+		this.departamento = departamento;
+	}
+	
+	
+	
+}

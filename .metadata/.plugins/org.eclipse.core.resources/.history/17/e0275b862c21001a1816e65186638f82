@@ -1,0 +1,32 @@
+package programa;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entidades.Trabalhador;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.println("Informe o departamento");
+		String nomeDepartamento = sc.next();
+		System.out.println("Inform seu nome");
+		String nomeFuncionario = sc.next();
+		System.out.println("Inform o nivel");
+		String nivel = sc.next();
+		System.out.println("Inform o Salario Base");
+		Double salario = sc.nextDouble();
+		
+		Trabalhador trabalhador = new Trabalhador(nomeTrabalhador, nivelTrabalhador, salarioBase, departamento);
+		
+		
+		
+		sc.close();
+
+	}
+
+}
