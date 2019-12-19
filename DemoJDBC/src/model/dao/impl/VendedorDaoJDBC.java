@@ -1,9 +1,11 @@
 package model.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +25,34 @@ public class VendedorDaoJDBC implements VendedorDao {
 
 	@Override
 	public void inserir(Vendedor vendedor) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement st = null;
+		try {
+			String sql = "INSERT INTO seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)";
+			st = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, vendedor.getNome());
+			st.setString(2, vendedor.getEmail());
+			st.setDate(3, new Date(vendedor.getDtNascimento().getTime()));
+			st.setDouble(4, vendedor.getSalario());
+			st.setInt(5, vendedor.getDepartamento().getId());
+			int rows = st.executeUpdate();
+			
+			if(rows > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					vendedor.setId(id);
+				}
+				DB.closeRs(rs);
+			} else {
+				throw new DbException("linha não inserida");
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeSt(st);
+			
+		}
+ 
 	}
 
 	@Override
