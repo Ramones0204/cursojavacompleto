@@ -2,6 +2,7 @@ package aplicacao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import model.dao.DaoFactory;
 import model.dao.VendedorDao;
@@ -11,7 +12,8 @@ import model.entidades.Vendedor;
 public class Programa {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
 		VendedorDao vendedorDao = DaoFactory.criarVendedor(); 
 		System.out.println("===Teste 1 : vendedor pelo ID");
 		Vendedor vendedor = vendedorDao.buscarPeloId(3);
@@ -40,6 +42,15 @@ public class Programa {
 		vendedor.setNome("Ramon Rodrigues de Oliveira Filho");
 		vendedorDao.atualizar(vendedor);
 		System.out.println("Atualizado");
+		
+		System.out.println("===Teste 6  : Deletar Vendedor");
+		System.out.println("Informe o id");
+		int id = sc.nextInt();
+		vendedorDao.removerPeloId(id);
+		System.out.println("Delete realizado");
+		
+		sc.close();
+		
 		
 	}
 
