@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import db.DB;
@@ -21,20 +22,49 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 
 	@Override
 	public void inserir(Departamento departamento) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement st = null;
+		String sql = "INSERT INTO department (Name) VALUES (?)";
+		try {
+			st = con.prepareStatement(sql);
+			st.setString(1, departamento.getNome());
+			st.executeUpdate();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeSt(st);
+		}
 	}
 
 	@Override
 	public void atualizar(Departamento departamento) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement st = null;
+		String sql = "update department set Name = ? where id = ?";
+		try {
+			st = con.prepareStatement(sql);
+			st.setString(1, departamento.getNome());
+			st.setInt(2, departamento.getId());
+			st.executeUpdate();
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeSt(st);
+		}
 	}
 
 	@Override
 	public void removerPeloId(Integer id) {
-		// TODO Auto-generated method stub
-
+		PreparedStatement st = null;
+		String sql = "delete from department where id = ? ";
+		try {
+			st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			st.executeUpdate();
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeSt(st);
+		}
 	}
 
 	@Override
@@ -47,20 +77,41 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 			st = con.prepareStatement(sql);
 			st.setInt(1, id);
 			rs = st.executeQuery();
-				if(rs.next()) {
-					Departamento dep = instanciarDepartamento(rs);
-					return dep;
-				}
-				return null;
-			} catch (Exception e) {
-				throw new DbException(e.getMessage());
-			} finally {
-				DB.closeRs(rs);
-				DB.closeSt(st);
+			if (rs.next()) {
+				Departamento dep = instanciarDepartamento(rs);
+				return dep;
 			}
-			
+			return null;
+		} catch (Exception e) {
+			throw new DbException(e.getMessage());
+		} finally {
+			DB.closeRs(rs);
+			DB.closeSt(st);
 		}
 
+	}
+	
+	@Override
+	public List<Departamento> listar() {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		String sql = "select * FROM department";
+		try {
+			st = con.prepareStatement(sql);
+			rs = st.executeQuery(sql);
+			List<Departamento> listaDep = new ArrayList<Departamento>();
+			while (rs.next()) {
+				Departamento departamento = instanciarDepartamento(rs);
+				listaDep.add(departamento);
+			}
+			return listaDep;
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+	
 	private Departamento instanciarDepartamento(ResultSet rs) throws SQLException {
 		Departamento departamento = new Departamento();
 		departamento.setId(rs.getInt("Id"));
@@ -68,10 +119,5 @@ public class DepartamentoDaoJDBC implements DepartamentoDao {
 		return departamento;
 	}
 
-	@Override
-	public List<Departamento> listar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
